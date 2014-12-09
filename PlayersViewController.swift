@@ -10,6 +10,24 @@ import UIKit
 
 class PlayersViewController: UITableViewController {
 
+    @IBAction func cancelToPlayersViewController(segue:UIStoryboardSegue) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func savePlayerDetail(segue:UIStoryboardSegue) {
+        let playerDetailsViewController = segue.sourceViewController as PlayerDetailsViewController
+        
+        //add the new player to the players array
+        players.append(playerDetailsViewController.player)
+        
+        //update the tableView
+        let indexPath = NSIndexPath(forRow: players.count-1, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        
+        //hide the detail view controller
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     var players: [Player] = playersData
     
     override func viewDidLoad() {
